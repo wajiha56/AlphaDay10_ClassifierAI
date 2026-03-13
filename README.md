@@ -1,65 +1,172 @@
-# 🤖 Day 10 – AI Classifier (Customer Buying Prediction)
+# 🤖 Day 10 – Customer Buying Behavior AI Classifier
 
-## 📌 Project Overview
+A Machine Learning project that trains an AI model to **predict whether a customer will buy a product** based on their behavior on a website.
 
-This project demonstrates how to build a **Machine Learning Classification Model** using **Logistic Regression** in Python.
-
-Unlike regression models that predict **numbers**, this AI model predicts **categories**. In this case, it predicts whether a **customer will buy a product or not** based on their behavior.
-
-The AI analyzes customer characteristics such as **Age** and **Time Spent on Website** to classify purchasing behavior.
+This project demonstrates a **complete Machine Learning workflow** including dataset preparation, model training, prediction, evaluation, and visualization.
 
 ---
 
 # 🎯 Project Objective
 
-The goal of this project is to:
+The goal of this project is to build an AI classifier that predicts:
 
-* Train an AI model to **predict customer decisions**
-* Implement **Logistic Regression for classification**
-* Evaluate model performance using **Accuracy Score**
-* Simulate a **real-world marketing prediction system**
+**Will a customer buy a product or not?**
 
----
+The model analyzes customer behavior and classifies them into two categories.
 
-# 🧠 Machine Learning Concept Used
-
-## Classification
-
-Classification is a type of machine learning used to predict **categories or labels** instead of numbers.
-
-Examples of classification problems:
-
-| Problem                      | Output               |
-| ---------------------------- | -------------------- |
-| Email Spam Detection         | Spam / Not Spam      |
-| Medical Diagnosis            | Disease / No Disease |
-| Customer Purchase Prediction | Buy / Not Buy        |
-| Fraud Detection              | Fraud / Safe         |
-
-In this project, the AI predicts:
-
-```
-1 = Customer bought the product
-0 = Customer did not buy the product
-```
+| Output | Meaning |
+|------|------|
+| 1 | Customer will buy the product |
+| 0 | Customer will not buy the product |
 
 ---
 
-# ⚙️ Machine Learning Algorithm Used
+# 📊 Dataset Information
 
-### Logistic Regression
+The dataset contains **60 customer records**.
 
-Logistic Regression is one of the most common algorithms used for **binary classification problems**.
+Each record includes the following features:
 
-It calculates the probability that a certain event will occur.
+| Feature | Description |
+|------|------|
+| Age | Age of the customer |
+| Minutes_on_Site | Time spent browsing the website |
+| Bought_Product | Target variable (0 = No, 1 = Yes) |
+
+Example dataset rows:
+
+```
+Age,Minutes_on_Site,Bought_Product
+22,5,0
+25,15,1
+45,2,0
+38,20,1
+50,25,1
+```
+
+### Observed Pattern
+
+Customers who spend **more time on the website** are more likely to **purchase the product**.
+
+---
+
+# 🧠 Machine Learning Workflow
+
+This project follows a standard Machine Learning pipeline.
+
+## 1️⃣ Load Dataset
+
+```python
+import pandas as pd
+data = pd.read_csv("customer_data.csv")
+```
+
+---
+
+## 2️⃣ Feature Selection
+
+Input features:
+
+```
+Age
+Minutes_on_Site
+```
+
+Target variable:
+
+```
+Bought_Product
+```
+
+---
+
+## 3️⃣ Train-Test Split
+
+The dataset is divided into training and testing data.
+
+```
+80% → Training Data
+20% → Testing Data
+```
 
 Example:
 
-```
-Probability of Buying = 0.82
+```python
+from sklearn.model_selection import train_test_split
 ```
 
-If probability > 0.5 → **Customer buys product**
+---
+
+## 4️⃣ Train the Model
+
+A Logistic Regression classifier is used to train the AI model.
+
+```python
+from sklearn.linear_model import LogisticRegression
+
+model = LogisticRegression()
+model.fit(X_train, y_train)
+```
+
+---
+
+## 5️⃣ Predict Customer Behavior
+
+The trained model predicts whether customers will buy a product.
+
+```python
+predictions = model.predict(X_test)
+```
+
+---
+
+## 6️⃣ Model Evaluation
+
+Model performance is evaluated using **Accuracy Score**.
+
+```
+Accuracy = Correct Predictions / Total Predictions
+```
+
+Example output from the terminal:
+
+```
+AI Classification Accuracy: 100.00%
+The AI has successfully learned to predict human buying behavior.
+```
+
+---
+
+# 📈 Data Visualization
+
+A scatter plot was generated to visualize customer behavior.
+
+Graph details:
+
+- **X-axis:** Age  
+- **Y-axis:** Minutes on Site  
+- **Green points:** Customers who bought the product  
+- **Red points:** Customers who did not buy  
+
+The visualization clearly shows that customers who spend **more time on the website are more likely to purchase the product**.
+
+---
+
+# ⚙️ Technologies Used
+
+Programming Language:
+
+- Python
+
+Libraries:
+
+- Pandas
+- Scikit-learn
+- Matplotlib
+
+Development Environment:
+
+- VS Code
 
 ---
 
@@ -68,123 +175,27 @@ If probability > 0.5 → **Customer buys product**
 ```
 AlphaDay10_ClassifierAI
 │
-├── classifier_ai.py       # Machine Learning classification script
-├── customer_data.csv      # Sample customer dataset
-└── README.md              # Project documentation
+├── classifier_ai.py
+├── customer_data.csv
+└── README.md
 ```
 
 ---
 
-# 📊 Dataset Description
+# 🚀 Key Learning
 
-The dataset contains simple customer behavior information.
+This project demonstrates a fundamental Machine Learning concept:
 
-| Column          | Description                         |
-| --------------- | ----------------------------------- |
-| Age             | Customer age                        |
-| Minutes_on_Site | Time spent on website               |
-| Bought_Product  | Purchase decision (1 = Yes, 0 = No) |
+**AI models improve when they are trained on larger datasets.**
 
-Example dataset:
-
-```
-Age,Minutes_on_Site,Bought_Product
-22,5,0
-25,15,1
-45,2,0
-38,20,1
-```
-
----
-
-# ⚙️ Technologies Used
-
-* Python
-* Pandas
-* Scikit-learn
-* Machine Learning (Classification)
-
----
-
-# 🚀 How to Run the Project
-
-### Step 1 — Install Required Libraries
-
-```
-pip install pandas scikit-learn
-```
-
----
-
-### Step 2 — Navigate to the Project Folder
-
-```
-cd AlphaDay10_ClassifierAI
-```
-
----
-
-### Step 3 — Run the Python Script
-
-```
-python classifier_ai.py
-```
-
----
-
-# 💻 Expected Output
-
-```
---- Initializing AI Classifier ---
-AI Classification Accuracy: 50.00%
-The AI has successfully learned to predict human buying behavior.
-```
-
-Accuracy may vary depending on the training and test data.
-
----
-
-# 📈 Business Value
-
-This type of AI system can help businesses:
-
-* Predict **which customers are likely to buy**
-* Improve **marketing targeting**
-* Increase **sales conversion rates**
-* Personalize customer experiences
-
----
-
-# 🌍 Real-World Applications
-
-Classification models are widely used in:
-
-* Email spam filters
-* Credit card fraud detection
-* Customer churn prediction
-* Medical diagnosis systems
-* Recommendation engines
+Initially the model used a very small dataset and achieved **low accuracy**.  
+After upgrading to a larger dataset (60 records), the model successfully learned the pattern and achieved **100% classification accuracy**.
 
 ---
 
 # 👩‍💻 Author
 
 **Wajiha Arshad**
-BS Data Science Graduate | Machine Learning Enthusiast
 
-Skills Demonstrated:
-
-* Machine Learning Classification
-* Logistic Regression
-* Data Analysis
-* Python Programming
-
----
-
-# ⭐ Project Summary
-
-This project demonstrates how machine learning can analyze **customer behavior data** and classify purchasing decisions.
-
-By implementing **Logistic Regression and Accuracy Evaluation**, this AI model simulates a real-world **customer behavior prediction system** used in modern marketing analytics.
-
----
+BS Data Science Graduate  
+Python • Machine Learning • Data Analytics
